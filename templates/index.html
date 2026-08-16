@@ -64,6 +64,9 @@
         <h3>Datos para entrega</h3>
         <label>Nombre:</label>
         <input type="text" id="clientName" placeholder="Tu nombre">
+
+        <label>Telefono de contacto:>/label>
+        <input type="tel" id="clientPhone" placeholder="Tu número a 10 digitos">
         
         <label>Dirección / Notas:</label>
         <input type="text" id="clientAddress" placeholder="Calle, número y colonia">
@@ -115,12 +118,13 @@
 
     function sendWhatsApp() {
         let name = document.getElementById("clientName").value.trim();
+        let phone = document.getElementById("clientPhone").value.trim();
         let address = document.getElementById("clientAddress").value.trim();
         let payment = document.getElementById("paymentMethod").value;
         let total = document.getElementById("total-price").innerText;
 
-        if (!name || !address) {
-            alert("Por favor llena tu nombre y dirección.");
+        if (!name || !address || !phone) {
+            alert("Por favor llena tu nombre, teléfono y dirección.");
             return;
         }
 
@@ -132,6 +136,7 @@
         }
         message += `\n*Total:* $${total} MXN`;
         message += `\n*Nombre:* ${name}`;
+        message += `\n*Telefono:* ${phone}`;
         message += `\n*Dirección:* ${address}`;
         message += `\n*Pago:* ${payment}`;
 
