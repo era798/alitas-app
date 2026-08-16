@@ -15,103 +15,167 @@
             background-color: #f4f6f8;
             color: #333;
             padding: 15px;
+            padding-bottom: 100px;
         }
         .contenedor-app {
-            max-width: 480px;
+            max-width: 500px;
             margin: 0 auto;
             background: #ffffff;
             border-radius: 16px;
             padding: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
-        .header-menu {
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            margin-bottom: 15px;
-        }
         .header-menu h1 {
-            font-size: 1.5rem;
-            color: #d32f2f;
-            letter-spacing: 1px;
+            text-align: center;
+            color: #d9534f;
+            margin-bottom: 20px;
         }
-        .producto-card {
+        .categoria-titulo {
+            color: #d9534f;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 1.2em;
+        }
+        .card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid #eeeeee;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fff;
         }
-        .producto-card:last-child {
-            border-bottom: none;
-        }
-        .producto-info {
+        .info {
             flex: 1;
-            padding-right: 12px;
+            padding-right: 10px;
         }
-        .categoria-tag {
-            display: inline-block;
-            font-size: 0.7rem;
+        .nombre {
             font-weight: bold;
-            background: #ffebee;
-            color: #c62828;
-            padding: 2px 8px;
-            border-radius: 12px;
-            margin-bottom: 4px;
-            text-transform: uppercase;
+            font-size: 1.05em;
+            margin-bottom: 3px;
         }
-        .producto-titulo {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
-        .producto-desc {
-            font-size: 0.85rem;
+        .descripcion {
+            font-size: 0.85em;
             color: #666;
-            line-height: 1.3;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
-        .producto-precio {
-            font-size: 1.05rem;
+        .precio {
+            color: #0275d8;
             font-weight: bold;
-            color: #0083b0;
         }
-        .producto-img {
-            width: 85px;
-            height: 85px;
-            object-fit: cover;
-            border-radius: 10px;
-            background-color: #e0e0e0;
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-qty {
+            background: #d9534f;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty {
+            font-weight: bold;
+            font-size: 1.1em;
+            width: 20px;
+            text-align: center;
+        }
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top: 2px solid #eee;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        .btn-order {
+            background: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor-app">
-        <div class="header-menu">
-            <h1>NUESTRO MENÚ</h1>
-        </div>
-
-        {% set categorias = productos | map(attribute='categoria') | unique %}
-
-        {% for cat in categorias %}
-            <h2 style="color: #d9534f; margin-top: 25px; border-bottom: 2px solid #eee; padding-bottom: 5px; text-transform: uppercase;">{{ cat }}</h2>
-            
-            {% for producto in productos if producto.categoria == cat %}
-            <div class="card" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #ddd;">
-                <div class="info">
-                    <div class="nombre" style="font-weight: bold;">{{ producto.nombre }}</div>
-                    <div class="descripcion" style="font-size: 0.9em; color: #666;">{{ producto.descripcion }}</div>
-                    <div class="precio" style="color: #0275d8; font-weight: bold;">MXN ${{ producto.precio }}</div>
-                </div>
-                <div class="controls" style="display: flex; align-items: center; gap: 8px;">
-                    <button class="btn-qty" style="background: #d9534f; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 1.2em; cursor: pointer;" onclick="changeQty('{{ producto.nombre }}', {{ producto.precio }}, -1)">-</button>
-                    <span class="qty" id="qty-{{ producto.nombre }}" style="font-weight: bold; font-size: 1.1em; width: 20px; text-align: center;">0</span>
-                    <button class="btn-qty" style="background: #d9534f; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; font-size: 1.2em; cursor: pointer;" onclick="changeQty('{{ producto.nombre }}', {{ producto.precio }}, 1)">+</button>
-                </div>
-            </div>
-            {% endfor %}
-        {% endfor %}
+<div class="contenedor-app">
+    <div class="header-menu">
+        <h1>NUESTRO MENÚ</h1>
     </div>
+
+    <!-- Agrupa productos dinámicamente por categoría -->
+    {% set categorias = productos | map(attribute='categoria') | unique %}
+
+    {% for cat in categorias %}
+        <h2 class="categoria-titulo">{{ cat }}</h2>
+        
+        {% for producto in productos if producto.categoria == cat %}
+        <div class="card">
+            <div class="info">
+                <div class="nombre">{{ producto.nombre }}</div>
+                <div class="descripcion">{{ producto.descripcion }}</div>
+                <div class="precio">MXN ${{ producto.precio }}</div>
+            </div>
+            <div class="controls">
+                <button class="btn-qty" onclick="changeQty('{{ producto.nombre }}', {{ producto.precio }}, -1)">-</button>
+                <span class="qty" id="qty-{{ producto.nombre }}">0</span>
+                <button class="btn-qty" onclick="changeQty('{{ producto.nombre }}', {{ producto.precio }}, 1)">+</button>
+            </div>
+        </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<div class="cart-bar">
+    <div>Total: <strong id="total-display">MXN $0.00</strong></div>
+    <button class="btn-order" onclick="openModal()">Pedir</button>
+</div>
+
+<script>
+    let cart = {};
+    let total = 0;
+
+    function changeQty(name, price, change) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price };
+        cart[name].qty += change;
+        if (cart[name].qty < 0) cart[name].qty = 0;
+
+        document.getElementById(`qty-${name}`).innerText = cart[name].qty;
+
+        total = 0;
+        for (let item in cart) {
+            total += cart[item].qty * cart[item].price;
+        }
+        document.getElementById("total-display").innerText = `MXN $${total.toFixed(2)}`;
+    }
+
+    function openModal() {
+        if (total === 0) {
+            alert("Selecciona al menos un producto.");
+            return;
+        }
+        alert("Función para enviar pedido a WhatsApp activada.");
+    }
+</script>
+
+</body>
+</html>
