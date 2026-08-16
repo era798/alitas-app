@@ -1,18 +1,15 @@
 from flask import Flask, render_template
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import os
+from db import obtener_conexion
 
 app = Flask(__name__)
 
 def obtener_productos():
-    conexion = psycopg2.connect(
-        host="localhost",
-        database="alitas_db",
-        user="postgres",
-        password="Htvatcc6$",  # Reemplaza por tu contraseña real
-        port="5432",
-        client_encoding='utf8'      # Agrega esta línea
-    )
+    conexion = obtener_conexion()
+    if not conexion:
+        returm []
     # Asegura que la sesión lea caracteres UTF-8 (acentos, eñes)
     conexion.set_client_encoding('UTF8')
     
