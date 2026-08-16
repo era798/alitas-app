@@ -14,9 +14,9 @@ def obtener_conexion():
             print("No se encontró la variable DATABASE_URL")
             return None
     except Exception as e:
-        print(f":Error al conectar a la base de datos: {e}")
+        print(f"Error al conectar a la base de datos: {e}")
         return None
-        
+
 if __name__ == "__main__":
     conexion = obtener_conexion()
     if conexion:
