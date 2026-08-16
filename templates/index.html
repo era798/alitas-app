@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Alitas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            padding: 15px;
+        }
+        .contenedor-app {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .header-menu {
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 15px;
+        }
+        .header-menu h1 {
+            font-size: 1.5rem;
+            color: #d32f2f;
+            letter-spacing: 1px;
+        }
+        .producto-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .producto-card:last-child {
+            border-bottom: none;
+        }
+        .producto-info {
+            flex: 1;
+            padding-right: 12px;
+        }
+        .categoria-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: bold;
+            background: #ffebee;
+            color: #c62828;
+            padding: 2px 8px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .producto-titulo {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .producto-desc {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+        .producto-precio {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #0083b0;
+        }
+        .producto-img {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 10px;
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-app">
+        <div class="header-menu">
+            <h1>NUESTRO MENÚ</h1>
+        </div>
+
+        {% for p in productos %}
+        <div class="producto-card">
+            <div class="producto-info">
+                <span class="categoria-tag">{{ p.categoria }}</span>
+                <h3 class="producto-titulo">{{ p.nombre }}</h3>
+                <p class="producto-desc">{{ p.descripcion }}</p>
+                <div class="producto-precio">MXN ${{ "%.2f"|format(p.precio) }}</div>
+            </div>
+            
+            {% if p.imagen_url %}
+                <img src="{{ p.imagen_url }}" class="producto-img" alt="{{ p.nombre }}">
+            {% else %}
+                <div class="producto-img"></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+    </div>
