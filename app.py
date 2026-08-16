@@ -23,5 +23,5 @@ def inicio():
     productos = obtener_productos()
     return render_template('index.html', productos=productos)
 
-if __name__ '__main__':
+if __name__ =='__main__':
     app.run()
