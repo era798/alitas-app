@@ -13,7 +13,6 @@ def obtener_productos():
 
     conexion.set_client_encoding('UTF8')
     cursor = conexion.cursor(cursor_factory=RealDictCursor)
-    cursor.execute('SET search_path TO "Alitas", public;')
     cursor.execute('SELECT * FROM productos ORDER BY categoria ASC, nombre ASC;')
     productos = cursor.fetchall()
     cursor.close()
