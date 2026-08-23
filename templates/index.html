@@ -169,12 +169,30 @@
     }
 
     function openModal() {
-        if (total === 0) {
-            alert("Selecciona al menos un producto.");
-            return;
-        }
-        alert("Función para enviar pedido a WhatsApp activada.");
+    if (total === 0) {
+        alert("Selecciona al menos un producto.");
+        return;
     }
+
+    // Escribe aquí tu número telefónico a 10 dígitos antecedido por 521 (Ejemplo: 5215512345678)
+    const numeroWhatsApp = "528118499575";
+
+    let texto = "👋 *¡Hola! Quisiera realizar el siguiente pedido:*\n\n";
+
+    for (let item in cart) {
+        if (cart[item].qty > 0) {
+            const subtotal = cart[item].price * cart[item].qty;
+            texto += `• *${cart[item].qty}x* ${item} - $${subtotal.toFixed(2)}\n`;
+        }
+    }
+
+    texto += `\n💰 *Total: $${total.toFixed(2)}*`;
+
+    // Abrir WhatsApp con el mensaje estructurado
+    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+}
+
 </script>
 
 </body>
